@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SandyVault</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="assets/logo.svg" alt="SandyVault Logo" class="logo-img">
+                    <span class="brand-name">SandyVault</span>
+                </div>
+            </div>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="#home" class="nav-link" data-section="home">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#portfolio" class="nav-link" data-section="portfolio">
+                            <i class="fas fa-user"></i>
+                            <span>Portfolio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tools" class="nav-link" data-section="tools">
+                            <i class="fas fa-tools"></i>
+                            <span>Tools</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#courses" class="nav-link" data-section="courses">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Courses</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ebooks" class="nav-link" data-section="ebooks">
+                            <i class="fas fa-book"></i>
+                            <span>Ebooks</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#bundles" class="nav-link" data-section="bundles">
+                            <i class="fas fa-box"></i>
+                            <span>Bundles</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#projects" class="nav-link" data-section="projects">
+                            <i class="fas fa-code"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-right">
+                <div class="cart-container">
+                    <button class="cart-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="wishlist-btn" id="wishlistBtn" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </button>
+                </div>
+
+                <div class="user-menu">
+                    <div class="user-info">
+                        <span class="welcome-text">Welcome, <span id="username">User</span>!</span>
+                    </div>
+                    <button class="account-btn" id="accountBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Account</span>
+                    </button>
+                    <button class="logout-btn" id="logoutBtn" onclick="app.logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Dashboard Summary -->
+            <section class="dashboard-summary">
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-number" id="totalProducts">0</h3>
+                            <p class="card-label">Total Products</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-number">4.8</h3>
+                            <p class="card-label">Average Rating</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-number">12.5K</h3>
+                            <p class="card-label">Happy Customers</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Analytics Dashboard -->
+            <section class="analytics-section">
+                <div class="analytics-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        Live Analytics
+                    </h2>
+                </div>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <div class="analytics-number" id="liveVisitors">128</div>
+                            <div class="analytics-label">Live Visitors</div>
+                            <div class="analytics-trend positive">+12%</div>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <div class="analytics-number" id="todayDownloads">47</div>
+                            <div class="analytics-label">Today's Downloads</div>
+                            <div class="analytics-trend positive">+8%</div>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <div class="analytics-number" id="todayRevenue">$1,247</div>
+                            <div class="analytics-label">Today's Revenue</div>
+                            <div class="analytics-trend positive">+15%</div>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <div class="analytics-number" id="avgRating">4.9</div>
+                            <div class="analytics-label">Avg Rating</div>
+                            <div class="analytics-trend positive">+0.1</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters and Search -->
+            <section class="controls-section">
+                <div class="controls-container">
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input 
+                                type="text" 
+                                class="search-input" 
+                                id="searchInput" 
+                                placeholder="Search products..."
+                            >
+                        </div>
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="courses">Courses</option>
+                            <option value="ebooks">Ebooks</option>
+                            <option value="bundles">Bundles</option>
+                            <option value="projects">Projects</option>
+                        </select>
+                        
+                        <select class="filter-select" id="sortFilter">
+                            <option value="name">Sort by Name</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                        </select>
+
+                        <select class="filter-select" id="priceFilter">
+                            <option value="all">All Prices</option>
+                            <option value="0-25">$0 - $25</option>
+                            <option value="25-50">$25 - $50</option>
+                            <option value="50-100">$50 - $100</option>
+                            <option value="100+">$100+</option>
+                        </select>
+
+                        <select class="filter-select" id="ratingFilter">
+                            <option value="all">All Ratings</option>
+                            <option value="4.5+">4.5+ Stars</option>
+                            <option value="4+">4+ Stars</option>
+                            <option value="3.5+">3.5+ Stars</option>
+                        </select>
+
+                        <button class="filter-toggle" id="filterToggle">
+                            <i class="fas fa-filter"></i>
+                            <span>Filters</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section class="portfolio-section" id="portfolio-section" style="display: none;">
+                <div class="portfolio-hero">
+                    <div class="portfolio-intro">
+                        <h1 class="portfolio-title">Sandy's Digital Arsenal</h1>
+                        <p class="portfolio-subtitle">Expert in Web Development, Cybersecurity & Bash Scripting</p>
+                        <div class="expertise-badges">
+                            <span class="expertise-badge"><i class="fas fa-code"></i> Web Development</span>
+                            <span class="expertise-badge"><i class="fas fa-shield-alt"></i> Cybersecurity</span>
+                            <span class="expertise-badge"><i class="fas fa-terminal"></i> Bash Scripting</span>
+                            <span class="expertise-badge"><i class="fas fa-server"></i> DevOps</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-showcase">
+                    <h2 class="section-title">Core Expertise</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                            <h3>Frontend Development</h3>
+                            <p>Modern web applications with React, Vue.js, and vanilla JavaScript</p>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fas fa-server"></i></div>
+                            <h3>Backend Systems</h3>
+                            <p>Scalable APIs with Node.js, Python, and database management</p>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fas fa-lock"></i></div>
+                            <h3>Cybersecurity</h3>
+                            <p>Penetration testing, vulnerability assessment, and security tools</p>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+                            <h3>Automation & Scripting</h3>
+                            <p>Bash scripting, system administration, and workflow automation</p>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Collection Section -->
+            <section class="tools-section" id="tools-section" style="display: none;">
+                <div class="tools-hero">
+                    <h1 class="tools-title">Professional Tool Collection</h1>
+                    <p class="tools-subtitle">Advanced cybersecurity and development tools for professionals</p>
+                </div>
+                
+                <div class="tools-grid">
+                    <div class="tool-card featured">
+                        <div class="tool-header">
+                            <div class="tool-icon"><i class="fas fa-terminal"></i></div>
+                            <h3 class="tool-name">HackerCLI</h3>
+                            <span class="tool-badge">Featured</span>
+                        </div>
+                        <p class="tool-description">Command-line interface for penetration testing and security auditing</p>
+                        <div class="tool-features">
+                            <span class="feature-tag">Network Scanning</span>
+                            <span class="feature-tag">Vulnerability Assessment</span>
+                            <span class="feature-tag">Automation Scripts</span>
+                        </div>
+                        <div class="tool-actions">
+                            <button class="btn btn-primary">Download</button>
+                            <button class="btn btn-outline">Documentation</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3 class="tool-name">CyberShield</h3>
+                        </div>
+                        <p class="tool-description">Comprehensive security monitoring and protection suite</p>
+                        <div class="tool-features">
+                            <span class="feature-tag">Real-time Monitoring</span>
+                            <span class="feature-tag">Threat Detection</span>
+                            <span class="feature-tag">Incident Response</span>
+                        </div>
+                        <div class="tool-actions">
+                            <button class="btn btn-primary">Download</button>
+                            <button class="btn btn-outline">Documentation</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon"><i class="fas fa-bug"></i></div>
+                            <h3 class="tool-name">Igdefender</h3>
+                        </div>
+                        <p class="tool-description">Advanced intrusion detection and prevention system</p>
+                        <div class="tool-features">
+                            <span class="feature-tag">Intrusion Detection</span>
+                            <span class="feature-tag">Behavioral Analysis</span>
+                            <span class="feature-tag">Custom Rules</span>
+                        </div>
+                        <div class="tool-actions">
+                            <button class="btn btn-primary">Download</button>
+                            <button class="btn btn-outline">Documentation</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon"><i class="fas fa-eye-slash"></i></div>
+                            <h3 class="tool-name">Oblivion-gate</h3>
+                        </div>
+                        <p class="tool-description">Privacy-focused security gateway and traffic analyzer</p>
+                        <div class="tool-features">
+                            <span class="feature-tag">Traffic Analysis</span>
+                            <span class="feature-tag">Privacy Protection</span>
+                            <span class="feature-tag">Stealth Mode</span>
+                        </div>
+                        <div class="tool-actions">
+                            <button class="btn btn-primary">Download</button>
+                            <button class="btn btn-outline">Documentation</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Sections -->
+            <section class="products-section">
+                <!-- Powerful Courses -->
+                <div class="product-category" id="courses-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            Powerful Courses
+                        </h2>
+                        <p class="category-description">Master new skills with our comprehensive video courses</p>
+                    </div>
+                    <div class="products-grid" id="coursesGrid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Exclusive Ebooks -->
+                <div class="product-category" id="ebooks-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-book"></i>
+                            Exclusive Ebooks
+                        </h2>
+                        <p class="category-description">In-depth knowledge at your fingertips</p>
+                    </div>
+                    <div class="products-grid" id="ebooksGrid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Value Bundles -->
+                <div class="product-category" id="bundles-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-box"></i>
+                            Value Bundles
+                        </h2>
+                        <p class="category-description">Complete learning packages at unbeatable prices</p>
+                    </div>
+                    <div class="products-grid" id="bundlesGrid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Project Source Codes -->
+                <div class="product-category" id="projects-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-code"></i>
+                            Project Source Codes
+                        </h2>
+                        <p class="category-description">Ready-to-use source code for your next project</p>
+                    </div>
+                    <div class="products-grid" id="projectsGrid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container" id="productModal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="Product Image">
+                </div>
+                <div class="modal-details">
+                    <div class="modal-price" id="modalPrice"></div>
+                    <div class="modal-rating" id="modalRating"></div>
+                    <div class="modal-description" id="modalDescription"></div>
+                    <div class="modal-features" id="modalFeatures"></div>
+                    <div class="modal-actions">
+                        <button class="btn btn-primary add-to-cart-modal" id="addToCartModal">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-container cart-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Shopping Cart</h3>
+                <button class="modal-close" id="cartModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div id="cartContent">
+                    <!-- Cart items will be inserted here -->
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                    </div>
+                    <button class="btn btn-primary checkout-btn" id="checkoutBtn">
+                        <i class="fas fa-credit-card"></i>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal-overlay" id="wishlistModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">My Wishlist</h3>
+                <button class="modal-close" id="wishlistModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div id="wishlistContent">
+                    <!-- Wishlist items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Account Modal -->
+    <div class="modal-overlay" id="accountModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">My Account</h3>
+                <button class="modal-close" id="accountModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="account-content">
+                    <div class="account-section">
+                        <h4>Profile Information</h4>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <label>Username:</label>
+                                <span id="profileUsername">User</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Email:</label>
+                                <span id="profileEmail">user@sandyvault.com</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Member Since:</label>
+                                <span id="memberSince">January 2024</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Account Type:</label>
+                                <span class="premium-badge">Premium Member</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
