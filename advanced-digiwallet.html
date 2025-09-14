@@ -1,0 +1,2630 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiWallet Pro - Advanced Digital Finance Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Advanced CSS Variables for Theming */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #ff6b35;
+            --accent-success: #00ff88;
+            --accent-warning: #ffb800;
+            --accent-danger: #ff4757;
+            --border: #333333;
+            --border-hover: #555555;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.5);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .light-theme {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        /* Glassmorphism Components */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Gradient Backgrounds */
+        .gradient-bg {
+            background: var(--gradient-primary);
+        }
+
+        .gradient-text {
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-heavy);
+            max-width: 450px;
+            width: 100%;
+            margin: 1rem;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Advanced Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 0;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: none;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-tertiary);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            left: 0;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: white;
+            transform: translateX(8px);
+        }
+
+        .nav-item i {
+            width: 1.25rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 0;
+        }
+
+        .view {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        .view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .view-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .view-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Advanced Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-tertiary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--border-hover);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00ff88, #00d4aa);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Advanced Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-tertiary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-tertiary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            color: var(--accent-success);
+        }
+
+        .stat-change.negative {
+            color: var(--accent-danger);
+        }
+
+        /* Advanced Cards */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card-header {
+            padding: 1.5rem 2rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        /* Advanced Transaction List */
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            padding: 1.25rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transaction-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-tertiary);
+            transform: scaleY(0);
+            transition: var(--transition);
+        }
+
+        .transaction-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .transaction-item:hover {
+            background: var(--bg-tertiary);
+            transform: translateX(8px);
+        }
+
+        .transaction-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .transaction-icon.income {
+            background: linear-gradient(135deg, #00ff88, #00d4aa);
+        }
+
+        .transaction-icon.expense {
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-description {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .transaction-category {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .transaction-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .transaction-amount.income {
+            color: var(--accent-success);
+        }
+
+        .transaction-amount.expense {
+            color: var(--accent-danger);
+        }
+
+        /* Advanced Marketplace */
+        .marketplace-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gradient-tertiary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image::before {
+            left: 100%;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Advanced Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-heavy);
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .modal-form {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Advanced Form Inputs */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        /* Advanced Charts Placeholder */
+        .chart-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            border: 2px dashed var(--border);
+        }
+
+        .chart-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: white;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            z-index: 2000;
+            transform: translateX(400px);
+            transition: var(--transition);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #00ff88, #00d4aa);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Advanced Progress Bars */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-tertiary);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle.active::before {
+            transform: translateX(28px);
+        }
+
+        /* Crypto Ticker */
+        .crypto-ticker {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ticker-content {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+            
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+            
+            .nav-item {
+                min-width: 120px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .view-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .marketplace-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-card {
+                padding: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Advanced Trading Interface */
+        .trading-interface {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .price-chart {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .order-book {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .price-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        /* Portfolio Allocation */
+        .portfolio-allocation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .allocation-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .allocation-percentage {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        /* News Feed */
+        .news-feed {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .news-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--accent-primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-hover);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card animate__animated animate__fadeInUp">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h1 class="gradient-text">DigiWallet Pro</h1>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Advanced Digital Finance Manager</p>
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Portfolio • Trading • Analytics • DeFi</p>
+            </div>
+            
+            <form id="login-form" class="modal-form">
+                <div class="form-group">
+                    <label class="form-label" style="color: rgba(255,255,255,0.9);">Username</label>
+                    <input type="text" name="username" class="form-input" placeholder="Enter username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" style="color: rgba(255,255,255,0.9);">Password</label>
+                    <input type="password" name="password" class="form-input" placeholder="Enter password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Access Wallet
+                </button>
+                
+                <div style="text-align: center; margin-top: 1rem; color: rgba(255,255,255,0.6); font-size: 0.85rem;">
+                    Demo credentials: any username/password
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="dashboard-container" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="brand">
+                    <div class="brand-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <span>DigiWallet Pro</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="theme-toggle" id="theme-toggle">
+                    </div>
+                    <button class="btn btn-secondary" id="download-btn">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="btn btn-secondary" id="notifications-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </button>
+                    <button class="btn btn-danger" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-item active" data-view="wallet">
+                        <i class="fas fa-wallet"></i>
+                        <span>Portfolio</span>
+                    </button>
+                    <button class="nav-item" data-view="trading">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Trading</span>
+                    </button>
+                    <button class="nav-item" data-view="defi">
+                        <i class="fas fa-coins"></i>
+                        <span>DeFi</span>
+                    </button>
+                    <button class="nav-item" data-view="marketplace">
+                        <i class="fas fa-store"></i>
+                        <span>Marketplace</span>
+                    </button>
+                    <button class="nav-item" data-view="analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </button>
+                    <button class="nav-item" data-view="nft">
+                        <i class="fas fa-image"></i>
+                        <span>NFT Gallery</span>
+                    </button>
+                    <button class="nav-item" data-view="staking">
+                        <i class="fas fa-seedling"></i>
+                        <span>Staking</span>
+                    </button>
+                    <button class="nav-item" data-view="news">
+                        <i class="fas fa-newspaper"></i>
+                        <span>News</span>
+                    </button>
+                    <button class="nav-item" data-view="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Crypto Ticker -->
+                <div class="crypto-ticker">
+                    <div class="ticker-content" id="crypto-ticker">
+                        <!-- Dynamic ticker content -->
+                    </div>
+                </div>
+
+                <!-- Portfolio View -->
+                <div id="wallet-view" class="view active">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Portfolio Overview</h2>
+                            <p class="view-subtitle">Manage your digital assets and track performance</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-transaction-btn">
+                            <i class="fas fa-plus"></i>
+                            Add Transaction
+                        </button>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Total Balance</div>
+                                    <div class="stat-value" id="current-balance">$0.00</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+12.5%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Monthly Income</div>
+                                    <div class="stat-value income" id="monthly-income">$0.00</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+8.2%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-trending-up"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Monthly Expenses</div>
+                                    <div class="stat-value expense" id="monthly-expenses">$0.00</div>
+                                    <div class="stat-change negative">
+                                        <i class="fas fa-arrow-down"></i>
+                                        <span>-3.1%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-trending-down"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Total Assets</div>
+                                    <div class="stat-value">24</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+2 new</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Allocation -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Asset Allocation</h3>
+                            <p class="card-subtitle">Current portfolio distribution</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="portfolio-allocation">
+                                <div class="allocation-item">
+                                    <div class="allocation-percentage" style="color: var(--accent-primary);">45%</div>
+                                    <div>Cryptocurrencies</div>
+                                </div>
+                                <div class="allocation-item">
+                                    <div class="allocation-percentage" style="color: var(--accent-success);">30%</div>
+                                    <div>Stocks</div>
+                                </div>
+                                <div class="allocation-item">
+                                    <div class="allocation-percentage" style="color: var(--accent-warning);">15%</div>
+                                    <div>Bonds</div>
+                                </div>
+                                <div class="allocation-item">
+                                    <div class="allocation-percentage" style="color: var(--accent-secondary);">10%</div>
+                                    <div>Cash</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Transactions</h3>
+                            <p class="card-subtitle">Latest portfolio activity</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="transaction-list" id="transactions-list">
+                                <!-- Dynamic transaction content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trading View -->
+                <div id="trading-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Trading Dashboard</h2>
+                            <p class="view-subtitle">Real-time market data and trading tools</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i>
+                            New Order
+                        </button>
+                    </div>
+
+                    <div class="trading-interface">
+                        <div class="price-chart">
+                            <div class="price-display">
+                                <span style="color: var(--accent-primary);">BTC/USD</span>
+                                <span id="btc-price">$67,892.45</span>
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    +2.34%
+                                </span>
+                            </div>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-area"></i>
+                                <p>Advanced Trading Chart</p>
+                                <p style="font-size: 0.9rem; opacity: 0.7;">TradingView integration would go here</p>
+                            </div>
+                        </div>
+
+                        <div class="order-book">
+                            <h3 style="margin-bottom: 1rem;">Order Book</h3>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-secondary);">
+                                    <span>Price</span>
+                                    <span>Size</span>
+                                    <span>Total</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; color: var(--accent-danger);">
+                                    <span>67,900</span>
+                                    <span>0.125</span>
+                                    <span>8,487.5</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; color: var(--accent-danger);">
+                                    <span>67,895</span>
+                                    <span>0.340</span>
+                                    <span>23,084.3</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--accent-danger);">
+                                    <span>67,892</span>
+                                    <span>0.180</span>
+                                    <span>12,220.6</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; color: var(--accent-success);">
+                                    <span>67,890</span>
+                                    <span>0.250</span>
+                                    <span>16,972.5</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; color: var(--accent-success);">
+                                    <span>67,885</span>
+                                    <span>0.420</span>
+                                    <span>28,511.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DeFi View -->
+                <div id="defi-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">DeFi Dashboard</h2>
+                            <p class="view-subtitle">Decentralized finance protocols and yields</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-link"></i>
+                            Connect Wallet
+                        </button>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Total Value Locked</div>
+                                    <div class="stat-value">$12,450</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+15.2%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Yield Earned</div>
+                                    <div class="stat-value income">$892.34</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+28.7%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Active Positions</div>
+                                    <div class="stat-value">8</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-plus"></i>
+                                        <span>2 new</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Active DeFi Positions</h3>
+                            <p class="card-subtitle">Your current liquidity and staking positions</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="transaction-list">
+                                <div class="transaction-item">
+                                    <div class="transaction-icon" style="background: linear-gradient(135deg, #627eea, #4f46e5);">
+                                        <i class="fab fa-ethereum"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-description">Uniswap V3 ETH/USDC</div>
+                                        <div class="transaction-category">Liquidity Pool • 24.5% APY</div>
+                                    </div>
+                                    <div class="transaction-amount income">$3,420.50</div>
+                                </div>
+                                
+                                <div class="transaction-item">
+                                    <div class="transaction-icon" style="background: linear-gradient(135deg, #ff9500, #ff7b00);">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-description">Compound cUSDC</div>
+                                        <div class="transaction-category">Lending • 8.2% APY</div>
+                                    </div>
+                                    <div class="transaction-amount income">$5,200.00</div>
+                                </div>
+                                
+                                <div class="transaction-item">
+                                    <div class="transaction-icon" style="background: linear-gradient(135deg, #1ba34a, #16a34a);">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-description">Yearn Finance Vault</div>
+                                        <div class="transaction-category">Yield Farming • 18.7% APY</div>
+                                    </div>
+                                    <div class="transaction-amount income">$2,830.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketplace View -->
+                <div id="marketplace-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Digital Marketplace</h2>
+                            <p class="view-subtitle">Premium digital assets and tools</p>
+                        </div>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-heart"></i>
+                            Wishlist (0)
+                        </button>
+                    </div>
+
+                    <div class="marketplace-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="courses">Courses</button>
+                        <button class="filter-btn" data-filter="tools">Tools</button>
+                        <button class="filter-btn" data-filter="templates">Templates</button>
+                        <button class="filter-btn" data-filter="nft">NFTs</button>
+                    </div>
+
+                    <div class="marketplace-grid" id="marketplace-grid">
+                        <!-- Dynamic marketplace content -->
+                    </div>
+                </div>
+
+                <!-- Analytics View -->
+                <div id="analytics-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Advanced Analytics</h2>
+                            <p class="view-subtitle">Portfolio insights and performance metrics</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Export Report
+                        </button>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 style="margin-bottom: 1rem;">Portfolio Performance</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-line"></i>
+                            <p>Interactive Performance Chart</p>
+                            <p style="font-size: 0.9rem; opacity: 0.7;">Chart.js/D3.js visualization would go here</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 style="margin-bottom: 1rem;">Asset Allocation</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-pie"></i>
+                            <p>Portfolio Allocation Pie Chart</p>
+                            <p style="font-size: 0.9rem; opacity: 0.7;">Interactive donut chart visualization</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 style="margin-bottom: 1rem;">Risk Analysis</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Risk Metrics Dashboard</p>
+                            <p style="font-size: 0.9rem; opacity: 0.7;">VaR, Sharpe ratio, volatility analysis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NFT Gallery View -->
+                <div id="nft-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">NFT Gallery</h2>
+                            <p class="view-subtitle">Your digital collectibles collection</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Import NFT
+                        </button>
+                    </div>
+
+                    <div class="marketplace-grid">
+                        <div class="product-card">
+                            <div class="product-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">CryptoPunk #1234</h3>
+                                <p class="product-description">Rare alien punk with laser eyes and gold chain</p>
+                                <div class="product-footer">
+                                    <div class="product-price">15.5 ETH</div>
+                                    <button class="btn btn-secondary">View</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">Bored Ape #5678</h3>
+                                <p class="product-description">Unique ape with rare traits and accessories</p>
+                                <div class="product-footer">
+                                    <div class="product-price">28.2 ETH</div>
+                                    <button class="btn btn-secondary">View</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">Art Blocks #9999</h3>
+                                <p class="product-description">Generative art masterpiece with unique algorithm</p>
+                                <div class="product-footer">
+                                    <div class="product-price">3.7 ETH</div>
+                                    <button class="btn btn-secondary">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Staking View -->
+                <div id="staking-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Staking Rewards</h2>
+                            <p class="view-subtitle">Earn passive income through staking</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Stake Assets
+                        </button>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Total Staked</div>
+                                    <div class="stat-value">$8,420.50</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+5.2%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Rewards Earned</div>
+                                    <div class="stat-value income">$334.67</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>Daily +$12.34</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Average APY</div>
+                                    <div class="stat-value">14.8%</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>+0.3%</span>
+                                    </div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Active Staking Positions</h3>
+                            <p class="card-subtitle">Your current staking rewards and status</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="transaction-list">
+                                <div class="transaction-item">
+                                    <div class="transaction-icon" style="background: linear-gradient(135deg, #627eea, #4f46e5);">
+                                        <i class="fab fa-ethereum"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-description">Ethereum 2.0 Staking</div>
+                                        <div class="transaction-category">32 ETH Staked • 5.2% APY</div>
+                                    </div>
+                                    <div class="transaction-amount income">+$8.45/day</div>
+                                </div>
+                                
+                                <div class="transaction-item">
+                                    <div class="transaction-icon" style="background: linear-gradient(135deg, #f7931a, #ff9500);">
+                                        <i class="fab fa-bitcoin"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-description">Cardano Delegation</div>
+                                        <div class="transaction-category">5,000 ADA • 4.8% APY</div>
+                                    </div>
+                                    <div class="transaction-amount income">+$2.67/day</div>
+                                </div>
+                                
+                                <div class="transaction-item">
+                                    <div class="transaction-icon" style="background: linear-gradient(135deg, #1ba34a, #16a34a);">
+                                        <i class="fas fa-dot-circle"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-description">Polkadot Nominating</div>
+                                        <div class="transaction-category">200 DOT • 12.5% APY</div>
+                                    </div>
+                                    <div class="transaction-amount income">+$3.22/day</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News View -->
+                <div id="news-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Market News</h2>
+                            <p class="view-subtitle">Latest cryptocurrency and finance news</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-rss"></i>
+                            Subscribe
+                        </button>
+                    </div>
+
+                    <div class="news-feed">
+                        <div class="news-item">
+                            <h4 class="news-title">Bitcoin Reaches New All-Time High of $73,000</h4>
+                            <p class="news-meta">CoinDesk • 2 hours ago</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                                Bitcoin surged to a new record high amid increased institutional adoption and favorable regulatory developments.
+                            </p>
+                        </div>
+
+                        <div class="news-item">
+                            <h4 class="news-title">Ethereum Merge Successfully Reduces Energy Consumption by 99%</h4>
+                            <p class="news-meta">Ethereum Foundation • 4 hours ago</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                                The Ethereum network's transition to proof-of-stake has dramatically reduced its environmental impact.
+                            </p>
+                        </div>
+
+                        <div class="news-item">
+                            <h4 class="news-title">DeFi TVL Crosses $200 Billion Milestone</h4>
+                            <p class="news-meta">DeFi Pulse • 6 hours ago</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                                Total value locked in DeFi protocols reaches new heights as institutional interest continues to grow.
+                            </p>
+                        </div>
+
+                        <div class="news-item">
+                            <h4 class="news-title">Major Bank Announces Cryptocurrency Trading Platform</h4>
+                            <p class="news-meta">Reuters • 8 hours ago</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                                Traditional financial institutions continue to embrace digital assets with new trading services.
+                            </p>
+                        </div>
+
+                        <div class="news-item">
+                            <h4 class="news-title">NFT Market Shows Signs of Recovery</h4>
+                            <p class="news-meta">OpenSea • 12 hours ago</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                                Trading volumes for non-fungible tokens increase as new utility-focused projects gain traction.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="settings-view" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h2 class="view-title">Settings</h2>
+                            <p class="view-subtitle">Customize your DigiWallet experience</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Appearance</h3>
+                            <p class="card-subtitle">Customize the look and feel</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label class="form-label">Theme</label>
+                                <select class="form-select" id="theme-select">
+                                    <option value="dark">Dark Mode</option>
+                                    <option value="light">Light Mode</option>
+                                    <option value="auto">Auto</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Security</h3>
+                            <p class="card-subtitle">Protect your account and assets</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label class="form-label">Two-Factor Authentication</label>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <span>Enabled</span>
+                                    <button class="btn btn-secondary">Manage</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Backup Phrase</label>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <span>Secured</span>
+                                    <button class="btn btn-secondary">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Notifications</h3>
+                            <p class="card-subtitle">Configure alerts and updates</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label class="form-label">Price Alerts</label>
+                                <input type="checkbox" checked> Email notifications for price changes
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Transaction Alerts</label>
+                                <input type="checkbox" checked> Push notifications for transactions
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Market News</label>
+                                <input type="checkbox"> Daily market summary emails
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Transaction Modal -->
+    <div id="transaction-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Transaction</h3>
+                <button class="close-btn" id="close-transaction-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="transaction-form" class="modal-form">
+                <div class="form-group">
+                    <label class="form-label">Type</label>
+                    <select name="transaction-type" class="form-select" required>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" name="transaction-amount" class="form-input" placeholder="0.00" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <input type="text" name="transaction-description" class="form-input" placeholder="Transaction description" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select name="transaction-category" class="form-select" required>
+                        <option value="salary">Salary</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="investment">Investment</option>
+                        <option value="trading">Trading</option>
+                        <option value="food">Food & Dining</option>
+                        <option value="transport">Transportation</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="defi">DeFi</option>
+                        <option value="nft">NFT</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" id="cancel-transaction" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Advanced DigiWallet Pro Application
+        class DigiWalletPro {
+            constructor() {
+                this.currentUser = null;
+                this.currentView = 'wallet';
+                this.balance = 45420.50;
+                this.monthlyIncome = 12800.00;
+                this.monthlyExpenses = 3250.00;
+                this.isDarkTheme = true;
+                
+                this.transactions = [
+                    { id: 1, type: 'income', amount: 5000, description: 'Ethereum Staking Rewards', category: 'defi', date: new Date('2024-01-20') },
+                    { id: 2, type: 'income', amount: 2500, description: 'Trading Profit - BTC/USD', category: 'trading', date: new Date('2024-01-19') },
+                    { id: 3, type: 'expense', amount: 2800, description: 'CryptoPunk NFT Purchase', category: 'nft', date: new Date('2024-01-18') },
+                    { id: 4, type: 'income', amount: 1200, description: 'Uniswap LP Fees', category: 'defi', date: new Date('2024-01-17') },
+                    { id: 5, type: 'income', amount: 8500, description: 'Freelance Development', category: 'freelance', date: new Date('2024-01-16') },
+                    { id: 6, type: 'expense', amount: 450, description: 'Premium Analytics Tool', category: 'shopping', date: new Date('2024-01-15') },
+                ];
+                
+                this.marketplaceProducts = [
+                    { id: 1, title: 'Advanced Trading Bot', description: 'AI-powered cryptocurrency trading algorithm with 85% success rate', price: 2499.99, icon: 'fas fa-robot', category: 'tools' },
+                    { id: 2, title: 'DeFi Mastery Course', description: 'Complete guide to decentralized finance and yield farming strategies', price: 399.99, icon: 'fas fa-graduation-cap', category: 'courses' },
+                    { id: 3, title: 'Portfolio Analytics Suite', description: 'Professional-grade portfolio analysis and risk management tools', price: 899.99, icon: 'fas fa-chart-line', category: 'tools' },
+                    { id: 4, title: 'NFT Collection Tracker', description: 'Track, analyze and manage your NFT investments across all chains', price: 199.99, icon: 'fas fa-images', category: 'tools' },
+                    { id: 5, title: 'Crypto Tax Calculator', description: 'Automated cryptocurrency tax calculation and reporting', price: 299.99, icon: 'fas fa-calculator', category: 'tools' },
+                    { id: 6, title: 'Smart Contract Audit', description: 'Professional security audit for your smart contracts', price: 5999.99, icon: 'fas fa-shield-alt', category: 'tools' },
+                    { id: 7, title: 'Blockchain Development Kit', description: 'Complete toolkit for building decentralized applications', price: 799.99, icon: 'fas fa-code', category: 'templates' },
+                    { id: 8, title: 'Rare Digital Art NFT', description: 'Exclusive generative art piece from renowned digital artist', price: 15.5, icon: 'fas fa-palette', category: 'nft', priceUnit: 'ETH' },
+                ];
+
+                this.cryptoPrices = [
+                    { symbol: 'BTC', price: 67892.45, change: 2.34 },
+                    { symbol: 'ETH', price: 3456.78, change: -1.23 },
+                    { symbol: 'ADA', price: 0.67, change: 5.67 },
+                    { symbol: 'DOT', price: 12.34, change: 3.45 },
+                    { symbol: 'SOL', price: 98.76, change: -2.11 },
+                    { symbol: 'MATIC', price: 1.23, change: 8.90 },
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.updateBalance();
+                this.renderTransactions();
+                this.renderMarketplace();
+                this.updateCryptoTicker();
+                this.loadTheme();
+                
+                // Check if user is already logged in
+                const savedUser = localStorage.getItem('digiwallet_pro_user');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                    this.showDashboard();
+                }
+
+                // Start real-time updates
+                this.startRealTimeUpdates();
+            }
+            
+            setupEventListeners() {
+                // Login form
+                const loginForm = document.getElementById('login-form');
+                loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+                
+                // Navigation
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const view = item.getAttribute('data-view');
+                        this.switchView(view);
+                    });
+                });
+                
+                // Header actions
+                document.getElementById('logout-btn').addEventListener('click', () => this.handleLogout());
+                document.getElementById('download-btn').addEventListener('click', () => this.downloadAdvancedReport());
+                document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
+                
+                // Transaction modal
+                document.getElementById('add-transaction-btn').addEventListener('click', () => this.openModal('transaction-modal'));
+                document.getElementById('close-transaction-modal').addEventListener('click', () => this.closeModal('transaction-modal'));
+                document.getElementById('cancel-transaction').addEventListener('click', () => this.closeModal('transaction-modal'));
+                document.getElementById('transaction-form').addEventListener('submit', (e) => this.handleAddTransaction(e));
+                
+                // Marketplace filters
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.filterMarketplace(btn.getAttribute('data-filter'));
+                    });
+                });
+                
+                // Close modal when clicking outside
+                window.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal')) {
+                        this.closeModal(e.target.id);
+                    }
+                });
+
+                // Theme select
+                const themeSelect = document.getElementById('theme-select');
+                if (themeSelect) {
+                    themeSelect.addEventListener('change', (e) => {
+                        this.setTheme(e.target.value);
+                    });
+                }
+            }
+            
+            handleLogin(e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const username = formData.get('username');
+                const password = formData.get('password');
+                
+                if (username && password) {
+                    this.currentUser = { 
+                        username, 
+                        loginTime: new Date(),
+                        tier: 'Pro',
+                        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + username
+                    };
+                    localStorage.setItem('digiwallet_pro_user', JSON.stringify(this.currentUser));
+                    this.showDashboard();
+                    this.showNotification(`Welcome back, ${username}! 🚀`, 'success');
+                } else {
+                    this.showNotification('Please enter both username and password', 'error');
+                }
+            }
+            
+            handleLogout() {
+                this.currentUser = null;
+                localStorage.removeItem('digiwallet_pro_user');
+                this.showLogin();
+                this.showNotification('Logged out successfully', 'info');
+            }
+            
+            showLogin() {
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('dashboard-screen').style.display = 'none';
+            }
+            
+            showDashboard() {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard-screen').style.display = 'flex';
+            }
+            
+            switchView(viewName) {
+                // Update navigation
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.view').forEach(view => {
+                    view.classList.remove('active');
+                });
+                document.getElementById(`${viewName}-view`).classList.add('active');
+                
+                this.currentView = viewName;
+                
+                // Trigger view-specific updates
+                if (viewName === 'trading') {
+                    this.updateTradingData();
+                } else if (viewName === 'analytics') {
+                    this.loadAnalytics();
+                }
+            }
+            
+            updateBalance() {
+                document.getElementById('current-balance').textContent = `$${this.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+                document.getElementById('monthly-income').textContent = `$${this.monthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+                document.getElementById('monthly-expenses').textContent = `$${this.monthlyExpenses.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            }
+            
+            renderTransactions() {
+                const transactionsList = document.getElementById('transactions-list');
+                if (!transactionsList) return;
+                
+                transactionsList.innerHTML = '';
+                
+                const sortedTransactions = [...this.transactions]
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .slice(0, 5);
+                
+                sortedTransactions.forEach(transaction => {
+                    const transactionElement = document.createElement('div');
+                    transactionElement.className = 'transaction-item';
+                    
+                    const sign = transaction.type === 'income' ? '+' : '-';
+                    const amountClass = transaction.type === 'income' ? 'income' : 'expense';
+                    const iconClass = transaction.type === 'income' ? 'fas fa-arrow-up' : 'fas fa-arrow-down';
+                    
+                    transactionElement.innerHTML = `
+                        <div class="transaction-icon ${amountClass}">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-description">${transaction.description}</div>
+                            <div class="transaction-category">${this.formatCategory(transaction.category)} • ${this.formatDate(transaction.date)}</div>
+                        </div>
+                        <div class="transaction-amount ${amountClass}">
+                            ${sign}$${transaction.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </div>
+                    `;
+                    
+                    transactionsList.appendChild(transactionElement);
+                });
+            }
+            
+            renderMarketplace() {
+                const marketplaceGrid = document.getElementById('marketplace-grid');
+                if (!marketplaceGrid) return;
+                
+                marketplaceGrid.innerHTML = '';
+                
+                this.marketplaceProducts.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.className = 'product-card';
+                    
+                    const priceDisplay = product.priceUnit === 'ETH' 
+                        ? `${product.price} ETH` 
+                        : `$${product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+                    
+                    productElement.innerHTML = `
+                        <div class="product-image">
+                            <i class="${product.icon}"></i>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">${product.title}</h3>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-footer">
+                                <div class="product-price">${priceDisplay}</div>
+                                <button class="btn btn-primary" onclick="digiWalletPro.purchaseProduct(${product.id})">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Buy
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    marketplaceGrid.appendChild(productElement);
+                });
+            }
+
+            filterMarketplace(filter) {
+                const products = document.querySelectorAll('.product-card');
+                
+                products.forEach(product => {
+                    if (filter === 'all') {
+                        product.style.display = 'block';
+                    } else {
+                        const productData = this.marketplaceProducts.find(p => 
+                            product.querySelector('.product-title').textContent === p.title
+                        );
+                        
+                        if (productData && productData.category === filter) {
+                            product.style.display = 'block';
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
+            updateCryptoTicker() {
+                const ticker = document.getElementById('crypto-ticker');
+                if (!ticker) return;
+
+                ticker.innerHTML = '';
+                
+                this.cryptoPrices.forEach(crypto => {
+                    const tickerItem = document.createElement('div');
+                    tickerItem.className = 'ticker-item';
+                    
+                    const changeClass = crypto.change >= 0 ? 'positive' : 'negative';
+                    const changeIcon = crypto.change >= 0 ? 'fas fa-arrow-up' : 'fas fa-arrow-down';
+                    
+                    tickerItem.innerHTML = `
+                        <span style="font-weight: 700;">${crypto.symbol}</span>
+                        <span>$${crypto.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                        <span class="stat-change ${changeClass}">
+                            <i class="${changeIcon}"></i>
+                            ${Math.abs(crypto.change).toFixed(2)}%
+                        </span>
+                    `;
+                    
+                    ticker.appendChild(tickerItem);
+                });
+            }
+            
+            handleAddTransaction(e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                
+                const newTransaction = {
+                    id: this.transactions.length + 1,
+                    type: formData.get('transaction-type'),
+                    amount: parseFloat(formData.get('transaction-amount')),
+                    description: formData.get('transaction-description'),
+                    category: formData.get('transaction-category'),
+                    date: new Date()
+                };
+                
+                this.transactions.unshift(newTransaction);
+                
+                // Update balance
+                if (newTransaction.type === 'income') {
+                    this.balance += newTransaction.amount;
+                    this.monthlyIncome += newTransaction.amount;
+                } else {
+                    this.balance -= newTransaction.amount;
+                    this.monthlyExpenses += newTransaction.amount;
+                }
+                
+                this.updateBalance();
+                this.renderTransactions();
+                this.closeModal('transaction-modal');
+                
+                // Reset form
+                e.target.reset();
+                
+                this.showNotification('Transaction added successfully! 📈', 'success');
+                this.saveData();
+            }
+            
+            purchaseProduct(productId) {
+                const product = this.marketplaceProducts.find(p => p.id === productId);
+                if (!product) return;
+                
+                const cost = product.priceUnit === 'ETH' ? product.price * 3456.78 : product.price; // ETH to USD conversion
+                
+                if (this.balance >= cost) {
+                    this.balance -= cost;
+                    this.monthlyExpenses += cost;
+                    
+                    // Add transaction
+                    const purchaseTransaction = {
+                        id: this.transactions.length + 1,
+                        type: 'expense',
+                        amount: cost,
+                        description: `Purchased: ${product.title}`,
+                        category: 'shopping',
+                        date: new Date()
+                    };
+                    
+                    this.transactions.unshift(purchaseTransaction);
+                    
+                    this.updateBalance();
+                    this.renderTransactions();
+                    
+                    this.showNotification(`Successfully purchased ${product.title}! 🎉`, 'success');
+                    this.saveData();
+                } else {
+                    this.showNotification('Insufficient balance for this purchase 💸', 'error');
+                }
+            }
+
+            updateTradingData() {
+                // Simulate real-time price updates
+                const btcPrice = document.getElementById('btc-price');
+                if (btcPrice) {
+                    const currentPrice = parseFloat(btcPrice.textContent.replace('$', '').replace(',', ''));
+                    const newPrice = currentPrice + (Math.random() - 0.5) * 100;
+                    btcPrice.textContent = `$${newPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+                }
+            }
+
+            loadAnalytics() {
+                // Simulate loading analytics data
+                this.showNotification('Analytics data loaded 📊', 'info');
+            }
+
+            startRealTimeUpdates() {
+                // Update crypto prices every 30 seconds
+                setInterval(() => {
+                    this.cryptoPrices.forEach(crypto => {
+                        crypto.price += (Math.random() - 0.5) * crypto.price * 0.01;
+                        crypto.change = (Math.random() - 0.5) * 10;
+                    });
+                    this.updateCryptoTicker();
+                }, 30000);
+
+                // Update trading data every 10 seconds
+                if (this.currentView === 'trading') {
+                    setInterval(() => {
+                        this.updateTradingData();
+                    }, 10000);
+                }
+            }
+            
+            openModal(modalId) {
+                document.getElementById(modalId).classList.add('active');
+            }
+            
+            closeModal(modalId) {
+                document.getElementById(modalId).classList.remove('active');
+            }
+            
+            formatCategory(category) {
+                const categoryMap = {
+                    'food': 'Food & Dining',
+                    'transport': 'Transportation',
+                    'entertainment': 'Entertainment',
+                    'utilities': 'Utilities',
+                    'shopping': 'Shopping',
+                    'salary': 'Salary',
+                    'freelance': 'Freelance',
+                    'investment': 'Investment',
+                    'trading': 'Trading',
+                    'defi': 'DeFi',
+                    'nft': 'NFT'
+                };
+                return categoryMap[category] || category.charAt(0).toUpperCase() + category.slice(1);
+            }
+
+            formatDate(date) {
+                return new Date(date).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+            }
+
+            toggleTheme() {
+                this.isDarkTheme = !this.isDarkTheme;
+                document.body.classList.toggle('light-theme', !this.isDarkTheme);
+                document.getElementById('theme-toggle').classList.toggle('active', !this.isDarkTheme);
+                
+                localStorage.setItem('digiwallet_theme', this.isDarkTheme ? 'dark' : 'light');
+                
+                this.showNotification(`Switched to ${this.isDarkTheme ? 'dark' : 'light'} theme ✨`, 'info');
+            }
+
+            setTheme(theme) {
+                if (theme === 'light') {
+                    this.isDarkTheme = false;
+                    document.body.classList.add('light-theme');
+                } else if (theme === 'dark') {
+                    this.isDarkTheme = true;
+                    document.body.classList.remove('light-theme');
+                } else {
+                    // Auto theme - use system preference
+                    this.isDarkTheme = !window.matchMedia('(prefers-color-scheme: light)').matches;
+                    document.body.classList.toggle('light-theme', !this.isDarkTheme);
+                }
+                
+                document.getElementById('theme-toggle').classList.toggle('active', !this.isDarkTheme);
+                localStorage.setItem('digiwallet_theme', theme);
+            }
+
+            loadTheme() {
+                const savedTheme = localStorage.getItem('digiwallet_theme') || 'dark';
+                this.setTheme(savedTheme);
+                
+                const themeSelect = document.getElementById('theme-select');
+                if (themeSelect) {
+                    themeSelect.value = savedTheme;
+                }
+            }
+            
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+                
+                // Remove after 4 seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 4000);
+            }
+            
+            downloadAdvancedReport() {
+                const reportData = {
+                    user: this.currentUser,
+                    balance: this.balance,
+                    monthlyIncome: this.monthlyIncome,
+                    monthlyExpenses: this.monthlyExpenses,
+                    totalAssets: 24,
+                    portfolioAllocation: {
+                        cryptocurrencies: 45,
+                        stocks: 30,
+                        bonds: 15,
+                        cash: 10
+                    },
+                    stakingRewards: 334.67,
+                    defiTVL: 12450,
+                    nftCollection: 3,
+                    transactions: this.transactions.slice(0, 20),
+                    cryptoPrices: this.cryptoPrices,
+                    generatedAt: new Date().toISOString()
+                };
+                
+                const reportText = `
+===========================================
+        DIGIWALLET PRO - PORTFOLIO REPORT
+===========================================
+
+User: ${this.currentUser?.username || 'Demo User'}
+Generated: ${new Date().toLocaleString()}
+
+PORTFOLIO OVERVIEW
+==================
+Total Balance: $${this.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+Monthly Income: $${this.monthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+Monthly Expenses: $${this.monthlyExpenses.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+Net Worth Growth: +12.5%
+
+ASSET ALLOCATION
+================
+Cryptocurrencies: 45% ($${(this.balance * 0.45).toLocaleString('en-US', { minimumFractionDigits: 2 })})
+Stocks: 30% ($${(this.balance * 0.30).toLocaleString('en-US', { minimumFractionDigits: 2 })})
+Bonds: 15% ($${(this.balance * 0.15).toLocaleString('en-US', { minimumFractionDigits: 2 })})
+Cash: 10% ($${(this.balance * 0.10).toLocaleString('en-US', { minimumFractionDigits: 2 })})
+
+DEFI POSITIONS
+==============
+Total Value Locked: $12,450.00
+Yield Earned: $334.67
+Average APY: 14.8%
+
+RECENT TRANSACTIONS
+===================
+${this.transactions.slice(0, 10).map(t => 
+    `${this.formatDate(t.date)} | ${t.type.toUpperCase()} | $${t.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })} | ${t.description}`
+).join('\n')}
+
+CURRENT CRYPTO PRICES
+=====================
+${this.cryptoPrices.map(c => 
+    `${c.symbol}: $${c.price.toLocaleString('en-US', { minimumFractionDigits: 2 })} (${c.change >= 0 ? '+' : ''}${c.change.toFixed(2)}%)`
+).join('\n')}
+
+PERFORMANCE METRICS
+===================
+• Portfolio Return: +28.7% YTD
+• Sharpe Ratio: 1.85
+• Maximum Drawdown: -8.2%
+• Volatility: 18.5%
+• Risk Score: 7/10
+
+RECOMMENDATIONS
+===============
+• Consider rebalancing crypto allocation
+• Increase DeFi exposure for higher yields
+• Diversify NFT holdings
+• Set up automated DCA strategies
+
+===========================================
+        DigiWallet Pro v2.0
+        Advanced Digital Finance Manager
+===========================================
+                `.trim();
+                
+                const blob = new Blob([reportText], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `digiwallet-pro-report-${new Date().toISOString().split('T')[0]}.txt`;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                this.showNotification('Advanced portfolio report downloaded! 📄', 'success');
+            }
+            
+            saveData() {
+                const appData = {
+                    balance: this.balance,
+                    monthlyIncome: this.monthlyIncome,
+                    monthlyExpenses: this.monthlyExpenses,
+                    transactions: this.transactions,
+                    lastSaved: new Date().toISOString()
+                };
+                localStorage.setItem('digiwallet_pro_data', JSON.stringify(appData));
+            }
+            
+            loadData() {
+                const savedData = localStorage.getItem('digiwallet_pro_data');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    this.balance = data.balance || this.balance;
+                    this.monthlyIncome = data.monthlyIncome || this.monthlyIncome;
+                    this.monthlyExpenses = data.monthlyExpenses || this.monthlyExpenses;
+                    this.transactions = data.transactions || this.transactions;
+                }
+            }
+        }
+
+        // Initialize the application
+        let digiWalletPro;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            digiWalletPro = new DigiWalletPro();
+            
+            // Auto-save data every 60 seconds
+            setInterval(() => {
+                if (digiWalletPro.currentUser) {
+                    digiWalletPro.saveData();
+                }
+            }, 60000);
+            
+            // Load saved data on startup
+            digiWalletPro.loadData();
+            digiWalletPro.updateBalance();
+            digiWalletPro.renderTransactions();
+            
+            // Add loading animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Handle page unload
+        window.addEventListener('beforeunload', () => {
+            if (digiWalletPro && digiWalletPro.currentUser) {
+                digiWalletPro.saveData();
+            }
+        });
+
+        // Add some Easter eggs and advanced features
+        let konami = [];
+        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+        document.addEventListener('keydown', (e) => {
+            konami.push(e.keyCode);
+            if (konami.length > konamiCode.length) {
+                konami.shift();
+            }
+            
+            if (JSON.stringify(konami) === JSON.stringify(konamiCode)) {
+                if (digiWalletPro) {
+                    digiWalletPro.balance += 10000;
+                    digiWalletPro.updateBalance();
+                    digiWalletPro.showNotification('🎮 Konami Code activated! +$10,000 bonus! 🚀', 'success');
+                    konami = [];
+                }
+            }
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                    console.log(`🚀 DigiWallet Pro loaded in ${loadTime}ms`);
+                }, 0);
+            });
+        }
+    </script>
+</body>
+</html>
